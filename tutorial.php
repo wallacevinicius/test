@@ -40,11 +40,11 @@
 				<form >
 					<h3>Expression Data:</h3>
 					<p>A tab-delimited text table of expression data that contains an initial column named "Symbol" with unique gene annotation, and other columns that contain gene expression data and sample names in the header.</p>
-					<img src="assets/images/tut1.png" width="100%" alt=""><p></p>
+					<img src="../assets/images/tut1.png" width="100%" alt=""><p></p>
 
 					<h3>Phenotypic Data:</h3>
 					<p>A table that contains at least two columns, "Sample" and "Class", which contain sample and class information. One of these classes will be chosen as the control class when the data is uploaded. Other columns can be provided that contain additional phenotypic information.</p>
-					<img src="assets/images/tut2.png" width="100%" alt=""><p></p>
+					<img src="../assets/images/tut2.png" width="100%" alt=""><p></p>
 
 					<h3>Pathways gmt file (optional)</h3>
 					<p>This is a .gmt format file that contains pathway information. The gene sets are arranged across the rows. The first column contains the pathway name, the second column contains a shorter description or a dummy field ("NA"), and the remainder of each row contains the gene symbols in that pathway. Rows can have unequal length. See link <a href="https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29">here</a> for more information.</p>
