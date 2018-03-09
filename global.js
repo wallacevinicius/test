@@ -14,9 +14,8 @@ var Upload = {
 	All: function(num){
 		var formData = new FormData($('#formUpload')[0]),
 		num = Upload.num,
-		c = $('[data-prog="'+num+'"]'),
-		d = $('[data-prog="'+num+'"] .progress-bar');
-		alert("Inicio"+num);
+		inputFile = $('[data-prog="'+num+'"]'),
+		progressBar = $('[data-prog="'+num+'"] .progress-bar');
 		if(Upload.one == 0 && num == 1 || Upload.two == 0 && num == 2 || Upload.three == 0 && num == 3){
 			$.ajax({
 				type: 'POST',
@@ -30,83 +29,70 @@ var Upload = {
 					xhr.upload.addEventListener("progress", function(evt){
 						if(evt.lengthComputable){
 							var percentComplete1 = evt.loaded / evt.total;
-							d.animate({'width': Math.round(percentComplete1 * 100)+'%'});
+							progressBar.animate({'width': Math.round(percentComplete1 * 100)+'%'});
 							console.log(Math.round(percentComplete1 * 100));
 						}
 					}, false);
 					xhr.addEventListener("progress", function(evt){
 						if(evt.lengthComputable){
 							var percentComplete1 = evt.loaded / evt.total;
-							d.animate({'width': Math.round(percentComplete1 * 100)+'%'});
+							progressBar.animate({'width': Math.round(percentComplete1 * 100)+'%'});
 							console.log(percentComplete1);
 						}
 					}, false);
 					return xhr; 
 				},
 				beforeSend: function(){
-					c.fadeIn(0);
-					d.addClass('progress-bar-animated');
+					inputFile.fadeIn(0);
+					progressBar.addClass('progress-bar-animated');
 				},
 				complete: function(){
-					d.removeClass('progress-bar-animated');
-					alert(num);
+					progressBar.addClass('bg-success');
+					progressBar.html("Upload Complete");
+					progressBar.removeClass('progress-bar-animated');
 				},
 				error: function(data){
 					console.log(data);
 				},
 				success: function(data){
-					alert(num);
-					d.addClass('bg-success');
-					d.html("Upload Complete");
-					d.removeClass('progress-bar-animated');
+					progressBar.addClass('bg-success');
+					progressBar.html("Upload Complete");
+					progressBar.removeClass('progress-bar-animated');
 					if(num == 2){
-						alert(num);
 						if (data.error) {
-							console.info(data.error);
-
+							$('.alert-danger').html("<i class='fas fa-exclamation-circle'></i> "+data.error);
+							$('.alert-danger').fadeIn(200);
 							if ( $("#phenotypicData").val() ) {
 								$("#param").append("<option>Select</option>");
 							}
 
-							console.log( data );
-
-						} else if (data.classes) {
-
-							console.log( data );
-
+						} else if (data.classes1) {
+							$('.alert-danger').fadeOut(200);
 							if ( $("#phenotypicData").val() ) {
 								$("#param").html("");
-
-								$.each(data.classes, function() {
+								$.each(data.classes1, function() {
 									$("#param").append("<option>"+this+"</option>");
 								});
 							}
 						}
 					} else if(num == 3){
-						alert(num);
 						if (data.error) {
-							console.info(data.error);
-
+							$('.alert-danger').html("<i class='fas fa-exclamation-circle'></i> "+data.error);
+							$('.alert-danger').fadeIn(200);
 							if ( $("#pathwaysGMT").val() ) {
 								$("#param2").append("<option>Select</option>");
 							}
-
-							console.log( data );
-
-						} else if (data.classes) {
-
-							console.log( data );
-
-							if ( $("#pathwaysGMT").val() ) {
+						} else if(data.classes2) {
+							$('.alert-danger').fadeOut(200);
+							if ($("#pathwaysGMT").val()) {
 								$("#param2").html("");
 
-								$.each(data.classes, function() {
+								$.each(data.classes2, function() {
 									$("#param2").append("<option>"+this+"</option>");
 								});
 							}
 						} 
 					}
-
 				}
 			});
 		}
